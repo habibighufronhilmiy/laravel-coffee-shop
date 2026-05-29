@@ -4,6 +4,7 @@ set -e
 echo "=== TensCoffee - Railway Deployment ==="
 echo "APP_ENV: ${APP_ENV:-not set}"
 echo "DB_CONNECTION: ${DB_CONNECTION:-not set}"
+echo "PORT: ${PORT:-not set}"
 
 echo ""
 echo "=== Menjalankan Migrasi Database ==="
