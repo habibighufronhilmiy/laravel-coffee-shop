@@ -14,30 +14,30 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
+        if (User::where('email', 'admin@tenscoffee.com')->exists()) {
+            return;
+        }
+
         $this->call([
             DemoSeeder::class,
         ]);
 
-        User::create([
-            'name' => 'Admin Tens Coffee',
-            'email' => 'admin@tenscoffee.com',
-            'password' => bcrypt('password'),
-            'role' => 'admin',
-        ]);
+        $users = [
+            ['name' => 'Admin Tens Coffee', 'email' => 'admin@tenscoffee.com', 'role' => 'admin'],
+            ['name' => 'Kasir Tens Coffee', 'email' => 'kasir@tenscoffee.com', 'role' => 'kasir'],
+            ['name' => 'Customer Demo', 'email' => 'customer@tenscoffee.com', 'role' => 'customer'],
+        ];
 
-        User::create([
-            'name' => 'Kasir Tens Coffee',
-            'email' => 'kasir@tenscoffee.com',
-            'password' => bcrypt('password'),
-            'role' => 'kasir',
-        ]);
-
-        User::create([
-            'name' => 'Customer Demo',
-            'email' => 'customer@tenscoffee.com',
-            'password' => bcrypt('password'),
-            'role' => 'customer',
-        ]);
+        foreach ($users as $user) {
+            User::firstOrCreate(
+                ['email' => $user['email']],
+                [
+                    'name' => $user['name'],
+                    'password' => bcrypt('password'),
+                    'role' => $user['role'],
+                ]
+            );
+        }
 
         $kopi = Kategori::create(['nama_kategori' => 'Kopi', 'icon' => 'coffee']);
         $nonKopi = Kategori::create(['nama_kategori' => 'Non Kopi', 'icon' => 'beverage']);

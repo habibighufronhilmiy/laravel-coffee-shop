@@ -12,6 +12,11 @@ php artisan migrate --force
 echo "Migrasi selesai."
 
 echo ""
+echo "=== Menjalankan Database Seeder ==="
+php artisan db:seed --force
+echo "Seeder selesai."
+
+echo ""
 echo "=== Membersihkan Cache ==="
 php artisan optimize:clear
 
