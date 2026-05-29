@@ -17,6 +17,8 @@ return Application::configure(basePath: dirname(__DIR__))
             Illuminate\Session\Middleware\StartSession::class,
             Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
         ]);
+
+        $middleware->trustProxies(at: '*');
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
