@@ -25,6 +25,7 @@ class User extends Authenticatable implements FilamentUser
         'google_id',
         'avatar',
         'no_telp',
+        'role',
     ];
 
     protected function casts(): array
