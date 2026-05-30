@@ -349,16 +349,12 @@ class CheckoutController extends Controller
             return response()->json(['message' => 'Metode pembayaran tidak mendukung pembayaran online'], 400);
         }
 
-        if ($transaksi->midtrans_snap_token) {
-            return response()->json(['snap_token' => $transaksi->midtrans_snap_token]);
-        }
-
         $transaksi->load('detailTransaksis.menu', 'detailTransaksis.variant');
         $cartItems = $transaksi->detailTransaksis->map(fn($d) => (object) [
             'menu_id' => $d->menu_id,
             'menu' => $d->menu,
             'variant' => $d->variant,
-            'harga' => $d->harga_satuan,
+            'harga' => $d->jumlah > 0 ? (int)($d->subtotal / $d->jumlah) : 0,
             'jumlah' => $d->jumlah,
         ]);
 
