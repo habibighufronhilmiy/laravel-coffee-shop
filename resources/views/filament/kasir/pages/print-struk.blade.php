@@ -220,6 +220,13 @@
             Download PDF
         </x-filament::button>
         <x-filament::button
+            onclick="window.print()"
+            icon="heroicon-o-printer"
+            color="success"
+            class="ml-2">
+            Cetak Struk
+        </x-filament::button>
+        <x-filament::button
             tag="a"
             href="{{ \App\Filament\Kasir\Resources\Transaksis\TransaksiResource::getUrl('index') }}"
             color="gray"
@@ -228,3 +235,11 @@
         </x-filament::button>
     </div>
 </x-filament-panels::page>
+
+@push('scripts')
+<script>
+    window.onload = function() {
+        setTimeout(function() { window.print(); }, 500);
+    }
+</script>
+@endpush

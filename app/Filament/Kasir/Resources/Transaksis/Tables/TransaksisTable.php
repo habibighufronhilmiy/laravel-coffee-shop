@@ -168,8 +168,8 @@ class TransaksisTable
                                 ->send();
                         }),
                     Action::make('print')
-                        ->label('Lihat Struk')
-                        ->icon('heroicon-o-eye')
+                        ->label('Cetak Struk')
+                        ->icon('heroicon-o-printer')
                         ->url(fn($record): string => TransaksiResource::getUrl('print', ['record' => $record->id])),
                     Action::make('download_pdf')
                         ->label('Download PDF')
