@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>Struk {{ $transaksi->invoice ?? '#' . $transaksi->id }}</title>
     <style>
-        body { font-family: 'Courier New', monospace; font-size: 12px; margin: 0; padding: 20px; }
+        body { font-family: 'Courier New', monospace; font-size: 12px; margin: 0; padding: 20px; color: #1f2937; }
         .header { text-align: center; border-bottom: 1px dashed #333; padding-bottom: 10px; margin-bottom: 10px; }
         .header h2 { margin: 0; font-size: 18px; }
         .header p { margin: 2px 0; font-size: 11px; color: #555; }
