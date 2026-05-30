@@ -358,7 +358,7 @@ class CheckoutController extends Controller
         ]);
 
         try {
-            $snapToken = $this->getMidtransSnapToken($transaksi, $cartItems);
+            $snapToken = $this->getMidtransSnapToken($transaksi, $cartItems, true);
         } catch (\Exception $e) {
             return response()->json(['message' => 'Gagal: ' . $e->getMessage()], 500);
         }
@@ -368,7 +368,7 @@ class CheckoutController extends Controller
         return response()->json(['snap_token' => $snapToken]);
     }
 
-    private function getMidtransSnapToken(Transaksi $transaksi, $cartItems): ?string
+    private function getMidtransSnapToken(Transaksi $transaksi, $cartItems, bool $isRetry = false): ?string
     {
         Config::$serverKey = config('midtrans.server_key');
         Config::$clientKey = config('midtrans.client_key');
@@ -423,9 +423,13 @@ class CheckoutController extends Controller
             }
         }
 
+        $orderId = $transaksi->invoice ?? ('TXN-' . $transaksi->id);
+        if ($isRetry) {
+            $orderId = $orderId . '-R' . time();
+        }
         $params = [
             'transaction_details' => [
-                'order_id' => $transaksi->invoice ?? ($transaksi->id . '-' . time()),
+                'order_id' => $orderId,
                 'gross_amount' => $transaksi->total_harga,
             ],
             'item_details' => $itemDetails,
