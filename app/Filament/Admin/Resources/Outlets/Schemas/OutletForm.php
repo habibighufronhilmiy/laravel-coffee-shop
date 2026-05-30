@@ -23,13 +23,11 @@ class OutletForm
                     ->required()
                     ->numeric()
                     ->rule('between:-90,90')
-                    ->maxLength(20)
                     ->helperText('Contoh: -6.917464'),
                 TextInput::make('longitude')
                     ->required()
                     ->numeric()
                     ->rule('between:-180,180')
-                    ->maxLength(20)
                     ->helperText('Contoh: 107.619123'),
                 TextInput::make('no_telp')
                     ->tel()
