@@ -194,26 +194,36 @@
         <div class="lg:col-span-2">
             <div class="bg-white rounded-2xl shadow-sm border p-6 sticky top-24">
                 {{-- Poin Loyalty --}}
-                <div x-show="poinBalance > 0" class="mb-6 p-4 bg-purple-50 border border-purple-200 rounded-xl">
-                    <div class="flex items-center justify-between mb-2">
-                        <span class="font-semibold text-purple-700">🎖️ Poin Loyalty</span>
-                        <span class="text-purple-700 font-bold" x-text="poinBalance + ' poin'"></span>
-                    </div>
-                    <p class="text-xs text-purple-500 mb-2">100 poin = Rp 10.000 diskon. Masukkan jumlah poin yang ingin ditukar:</p>
-                    <div class="flex gap-2">
-                        <input type="number" x-model.number="poinInput" min="0" :max="poinBalance" step="100"
-                            class="flex-1 border border-purple-200 rounded-xl px-4 py-2 text-sm focus:ring-2 focus:ring-purple-500 focus:border-purple-500 bg-white"
-                            placeholder="0">
-                        <button @click="pakaiPoin()"
-                            class="bg-purple-600 text-white px-4 py-2 rounded-xl text-sm font-medium hover:bg-purple-700 transition disabled:opacity-50"
-                            :disabled="!poinInput || poinInput < 100 || poinInput > poinBalance">
-                            Pakai
-                        </button>
-                    </div>
-                    <div x-show="poinDipakai > 0" class="mt-2 flex justify-between items-center">
-                        <span class="text-sm text-purple-600" x-text="'Potongan: Rp ' + diskonPoin.toLocaleString('id-ID')"></span>
-                        <button @click="batalkanPoin()" class="text-xs text-red-500 hover:text-red-700 font-medium">Batalkan</button>
-                    </div>
+                <div class="mb-6 p-4 bg-purple-50 border border-purple-200 rounded-xl">
+                    <template x-if="poinBalance > 0">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="font-semibold text-purple-700">🎖️ Poin Loyalty</span>
+                                <span class="text-purple-700 font-bold" x-text="poinBalance + ' poin'"></span>
+                            </div>
+                            <p class="text-xs text-purple-500 mb-2">100 poin = Rp 10.000 diskon. Masukkan jumlah poin yang ingin ditukar:</p>
+                            <div class="flex gap-2">
+                                <input type="number" x-model.number="poinInput" min="0" :max="poinBalance" step="100"
+                                    class="flex-1 border border-purple-200 rounded-xl px-4 py-2 text-sm focus:ring-2 focus:ring-purple-500 focus:border-purple-500 bg-white"
+                                    placeholder="0">
+                                <button @click="pakaiPoin()"
+                                    class="bg-purple-600 text-white px-4 py-2 rounded-xl text-sm font-medium hover:bg-purple-700 transition disabled:opacity-50"
+                                    :disabled="!poinInput || poinInput < 100 || poinInput > poinBalance">
+                                    Pakai
+                                </button>
+                            </div>
+                            <div x-show="poinDipakai > 0" class="mt-2 flex justify-between items-center">
+                                <span class="text-sm text-purple-600" x-text="'Potongan: Rp ' + diskonPoin.toLocaleString('id-ID')"></span>
+                                <button @click="batalkanPoin()" class="text-xs text-red-500 hover:text-red-700 font-medium">Batalkan</button>
+                            </div>
+                        </div>
+                    </template>
+                    <template x-if="poinBalance === 0">
+                        <div class="flex items-center justify-between">
+                            <span class="font-semibold text-purple-700">🎖️ Poin Loyalty</span>
+                            <span class="text-xs text-purple-500">Belum ada poin — ayo pesan untuk mengumpulkan poin!</span>
+                        </div>
+                    </template>
                 </div>
 
                 <h3 class="font-bold text-lg text-gray-800 mb-4 flex items-center gap-2">
