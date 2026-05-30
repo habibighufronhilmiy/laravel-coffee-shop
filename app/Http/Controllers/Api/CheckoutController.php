@@ -235,13 +235,12 @@ class CheckoutController extends Controller
                 ], 201);
             }
 
-            $snapToken = $this->getMidtransSnapToken($transaksi, $cartItems);
-
-            if ($snapToken) {
+            try {
+                $snapToken = $this->getMidtransSnapToken($transaksi, $cartItems);
                 $transaksi->update(['midtrans_snap_token' => $snapToken]);
-            } else {
+            } catch (\Exception $e) {
                 $transaksi->update(['status_pembayaran' => 'gagal']);
-                return response()->json(['message' => 'Gagal mendapatkan token pembayaran. Silakan coba lagi.'], 500);
+                return response()->json(['message' => 'Gagal: ' . $e->getMessage()], 500);
             }
 
             return response()->json([
@@ -358,10 +357,10 @@ class CheckoutController extends Controller
             'jumlah' => $d->jumlah,
         ]);
 
-        $snapToken = $this->getMidtransSnapToken($transaksi, $cartItems);
-
-        if (!$snapToken) {
-            return response()->json(['message' => 'Gagal mendapatkan token pembayaran'], 500);
+        try {
+            $snapToken = $this->getMidtransSnapToken($transaksi, $cartItems);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Gagal: ' . $e->getMessage()], 500);
         }
 
         $transaksi->update(['midtrans_snap_token' => $snapToken]);
@@ -460,12 +459,13 @@ class CheckoutController extends Controller
         try {
             return Snap::getSnapToken($params);
         } catch (\Exception $e) {
-            logger()->error('Midtrans Snap token failed: ' . $e->getMessage(), [
+            $msg = $e->getMessage();
+            logger()->error('Midtrans Snap token failed: ' . $msg, [
                 'transaksi_id' => $transaksi->id,
                 'total_harga' => $transaksi->total_harga,
                 'trace' => $e->getTraceAsString(),
             ]);
-            return null;
+            throw new \RuntimeException($msg);
         }
     }
 }

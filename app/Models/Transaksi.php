@@ -28,6 +28,7 @@ class Transaksi extends Model
         'longitude_pengiriman',
         'waktu_pengiriman_dijadwalkan',
         'nama_kurir',
+        'midtrans_snap_token',
     ];
 
     protected function casts(): array
