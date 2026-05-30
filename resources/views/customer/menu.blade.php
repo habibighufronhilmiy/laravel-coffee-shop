@@ -148,7 +148,8 @@
                     class="absolute inset-0">
                     <a :href="banner.link || '#'" :target="banner.link ? '_blank' : '_self'">
                         <img :src="'/storage/' + banner.gambar" :alt="banner.judul"
-                            class="w-full h-full object-cover">
+                            class="w-full h-full object-cover"
+                            onerror="this.style.display='none'">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
                         <div class="absolute bottom-4 left-4 right-4 text-white">
                             <h3 class="text-lg sm:text-xl font-bold" x-text="banner.judul"></h3>

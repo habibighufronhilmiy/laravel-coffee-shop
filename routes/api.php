@@ -53,6 +53,7 @@ Route::middleware(['auth:sanctum', 'throttle:60,1'])->group(function () {
     Route::get('/orders/{transaksi}', [OrderController::class, 'show']);
     Route::post('/orders/{transaksi}/cancel', [OrderController::class, 'cancel']);
     Route::post('/orders/{transaksi}/reorder', [OrderController::class, 'reorder']);
+    Route::post('/orders/{transaksi}/pay-now', [CheckoutController::class, 'payNow']);
 
     Route::get('/loyalty', [LoyaltyController::class, 'index']);
     Route::post('/loyalty/redeem', [LoyaltyController::class, 'redeem']);

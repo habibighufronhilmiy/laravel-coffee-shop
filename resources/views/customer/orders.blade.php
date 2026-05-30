@@ -118,7 +118,7 @@
                     </div>
 
                     <div class="mt-4 flex gap-2">
-                        <button x-show="order.metode_pembayaran === 'midtrans' && order.status_pembayaran === 'belum_bayar' && order.midtrans_snap_token"
+                        <button x-show="order.status_pembayaran === 'belum_bayar'"
                             @click="bayarSekarang(order)"
                             :disabled="payToken === order.id"
                             class="flex-1 text-center text-sm font-medium py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:from-blue-700 hover:to-indigo-700 transition disabled:opacity-50 disabled:cursor-not-allowed shadow-sm">
@@ -340,19 +340,35 @@ function orderApp() {
 
         bayarSekarang(order) {
             this.payToken = order.id;
-            snap.pay(order.midtrans_snap_token, {
-                onSuccess: () => {
-                    fetch('/orders/confirm/' + order.id, {
-                        method: 'POST',
-                        headers: { 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || '' }
-                    }).then(() => { this.loadOrders(); }).catch(() => { this.loadOrders(); });
-                },
-                onPending: () => { this.payToken = null; },
-                onError: () => {
+            const pay = (token) => {
+                snap.pay(token, {
+                    onSuccess: () => {
+                        fetch('/orders/confirm/' + order.id, {
+                            method: 'POST',
+                            headers: { 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || '' }
+                        }).then(() => { this.loadOrders(); }).catch(() => { this.loadOrders(); });
+                    },
+                    onPending: () => { this.payToken = null; },
+                    onError: () => {
+                        this.payToken = null;
+                        window.dispatchEvent(new CustomEvent('toast', { detail: { message: 'Pembayaran dibatalkan', type: 'error' } }));
+                    }
+                });
+            };
+            if (order.midtrans_snap_token) {
+                pay(order.midtrans_snap_token);
+            } else {
+                const token = getToken();
+                axios.post('/api/orders/' + order.id + '/pay-now', {}, {
+                    headers: { Authorization: 'Bearer ' + token }
+                }).then(res => {
+                    order.midtrans_snap_token = res.data.snap_token;
+                    pay(res.data.snap_token);
+                }).catch(err => {
                     this.payToken = null;
-                    window.dispatchEvent(new CustomEvent('toast', { detail: { message: 'Pembayaran dibatalkan', type: 'error' } }));
-                }
-            });
+                    window.dispatchEvent(new CustomEvent('toast', { detail: { message: err.response?.data?.message || 'Gagal memproses pembayaran', type: 'error' } }));
+                });
+            }
         },
 
         batalkanPesanan(orderId, index) {

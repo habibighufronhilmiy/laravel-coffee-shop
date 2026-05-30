@@ -335,6 +335,44 @@ class CheckoutController extends Controller
         return round($earthRadius * $c, 2);
     }
 
+    public function payNow(Request $request, Transaksi $transaksi): JsonResponse
+    {
+        if ($transaksi->user_id !== $request->user()->id) {
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
+
+        if ($transaksi->status_pembayaran !== 'belum_bayar') {
+            return response()->json(['message' => 'Pesanan sudah dibayar'], 400);
+        }
+
+        if ($transaksi->metode_pembayaran !== 'midtrans') {
+            return response()->json(['message' => 'Metode pembayaran tidak mendukung pembayaran online'], 400);
+        }
+
+        if ($transaksi->midtrans_snap_token) {
+            return response()->json(['snap_token' => $transaksi->midtrans_snap_token]);
+        }
+
+        $transaksi->load('detailTransaksis.menu', 'detailTransaksis.variant');
+        $cartItems = $transaksi->detailTransaksis->map(fn($d) => (object) [
+            'menu_id' => $d->menu_id,
+            'menu' => $d->menu,
+            'variant' => $d->variant,
+            'harga' => $d->harga_satuan,
+            'jumlah' => $d->jumlah,
+        ]);
+
+        $snapToken = $this->getMidtransSnapToken($transaksi, $cartItems);
+
+        if (!$snapToken) {
+            return response()->json(['message' => 'Gagal mendapatkan token pembayaran'], 500);
+        }
+
+        $transaksi->update(['midtrans_snap_token' => $snapToken]);
+
+        return response()->json(['snap_token' => $snapToken]);
+    }
+
     private function getMidtransSnapToken(Transaksi $transaksi, $cartItems): ?string
     {
         Config::$serverKey = config('midtrans.server_key');
