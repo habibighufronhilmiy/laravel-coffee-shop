@@ -229,7 +229,8 @@
                             <p class="text-xs text-gray-400">QRIS / E-Wallet</p>
                         </div>
                     </label>
-                    <label class="flex items-center gap-3 p-4 border rounded-xl cursor-pointer transition"
+                    <label x-show="tipePengambilan === 'ditempat'"
+                        class="flex items-center gap-3 p-4 border rounded-xl cursor-pointer transition"
                         :class="metodePembayaran === 'cash' ? 'border-blue-600 bg-blue-50' : 'hover:bg-blue-50'">
                         <input type="radio" value="cash" x-model="metodePembayaran" class="accent-blue-600">
                         <div>
@@ -237,6 +238,7 @@
                             <p class="text-xs text-gray-400">Cash / Tunai</p>
                         </div>
                     </label>
+                    <p x-show="tipePengambilan !== 'ditempat'" class="text-xs text-gray-400 text-center">Untuk pickup & delivery, hanya bisa menggunakan pembayaran Midtrans</p>
                 </div>
 
                 <div class="space-y-2 border-t border-gray-100 pt-4 mb-6">
@@ -352,6 +354,12 @@ function checkoutApp() {
         init() {
             this.outletDipilih = getOutlet();
             if (!this.outletDipilih) { this.loading = false; return; }
+
+            this.$watch('tipePengambilan', value => {
+                if (value !== 'ditempat') {
+                    this.metodePembayaran = 'midtrans';
+                }
+            });
 
             const token = getToken();
             if (!token) { window.location.href = '{{ route("login") }}'; return; }

@@ -50,6 +50,10 @@ class CheckoutController extends Controller
             }
         }
 
+        if ($validated['tipe_pengambilan'] !== 'ditempat' && $validated['metode_pembayaran'] === 'cash') {
+            return response()->json(['message' => 'Untuk pickup dan delivery hanya bisa menggunakan pembayaran Midtrans.'], 400);
+        }
+
         $userId = $request->user()->id;
 
         $cartItems = CartItem::with('menu', 'variant')->where('user_id', $userId)->get();
