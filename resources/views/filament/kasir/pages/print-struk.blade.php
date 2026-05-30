@@ -10,6 +10,13 @@
             font-family: 'Courier New', 'Consolas', monospace;
             font-size: 13px;
             line-height: 1.5;
+            color: #1f2937;
+        }
+        .receipt-wrapper td {
+            color: #1f2937;
+        }
+        .receipt-wrapper th {
+            color: #374151;
         }
         .receipt-header {
             text-align: center;
@@ -102,8 +109,9 @@
             .no-print { display: none !important; }
             .fi-sidebar-nav { display: none !important; }
             .fi-topbar { display: none !important; }
-            .fi-sidebar-layout > .fi-sidebar-layout-content { margin-left: 0 !important; }
-            body { background: #fff !important; }
+            .fi-sidebar-layout { display: block !important; }
+            .fi-sidebar-layout > .fi-sidebar-layout-content { margin-left: 0 !important; max-width: 100% !important; padding: 0 !important; }
+            body { background: #fff !important; color: #1f2937 !important; }
             .receipt-wrapper {
                 border: none !important;
                 box-shadow: none !important;
@@ -111,12 +119,16 @@
                 padding: 0 !important;
                 max-width: 100% !important;
             }
-            .receipt-header h2 { font-size: 18px; }
-            .receipt-header p { font-size: 10px; }
+            .receipt-header h2 { font-size: 18px; color: #1f2937 !important; }
+            .receipt-header p { font-size: 10px; color: #1f2937 !important; }
             .receipt-info table { font-size: 11px; }
+            .receipt-info td { color: #1f2937 !important; }
             .receipt-items table { font-size: 11px; }
-            .receipt-total table { font-size: 11px; }
-            .receipt-total .grand-total td { font-size: 14px; }
+            .receipt-items td { color: #1f2937 !important; }
+            .receipt-items th { color: #374151 !important; }
+            .receipt-total td { color: #1f2937 !important; }
+            .receipt-total .grand-total td { font-size: 14px; color: #1f2937 !important; }
+            .receipt-footer p { color: #1f2937 !important; }
             @page {
                 margin: 0;
                 size: 80mm auto;
