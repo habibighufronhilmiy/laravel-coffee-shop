@@ -105,8 +105,7 @@ class AdminPanelProvider extends PanelProvider
                                 padding: 2.5rem;
                                 border: 1px solid #e2e8f0;
                             }
-                            .fi-simple-header { display: none; }
-                            .fi-form { display: flex; flex-direction: column; gap: 1.25rem; }
+                            .fi-sc-form { display: flex; flex-direction: column; gap: 1.25rem; }
                             .fi-input-wrp {
                                 border-radius: 0.625rem !important;
                                 overflow: hidden !important;
@@ -166,7 +165,7 @@ class AdminPanelProvider extends PanelProvider
                             button[type="submit"]:hover {
                                 background: #1d4ed8 !important;
                             }
-                            .fi-form-actions {
+                            .fi-sc-actions {
                                 margin-top: 0.25rem !important;
                             }
                             @media (max-width: 640px) {
