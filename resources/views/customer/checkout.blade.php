@@ -529,8 +529,9 @@ function checkoutApp() {
         pakaiPoin() {
             const pts = parseInt(this.poinInput);
             if (!pts || pts < 100 || pts > this.poinBalance) return;
-            const discount = Math.floor(pts / 100) * 10000;
-            this.poinDipakai = pts;
+            const used = Math.floor(pts / 100) * 100;
+            const discount = (used / 100) * 10000;
+            this.poinDipakai = used;
             this.diskonPoin = discount;
         },
 
