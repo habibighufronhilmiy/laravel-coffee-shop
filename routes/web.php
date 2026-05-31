@@ -72,10 +72,7 @@ Route::get('/download-struk-pdf/{transaksi}', function (Transaksi $transaksi) {
     abort_unless($user && in_array($user->role, ['kasir', 'admin']), 403);
     $transaksi->load(['detailTransaksis.menu', 'user', 'kasir', 'outlet']);
     $pdf = Pdf::loadView('filament.kasir.pages.print-struk-pdf', ['transaksi' => $transaksi]);
-    return response()->streamDownload(
-        fn () => print($pdf->output()),
-        "struk-{$transaksi->invoice}.pdf"
-    );
+    return $pdf->stream("struk-{$transaksi->invoice}.pdf");
 })->name('download-struk-pdf')->middleware('auth');
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

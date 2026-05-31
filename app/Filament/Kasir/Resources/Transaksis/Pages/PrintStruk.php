@@ -31,9 +31,6 @@ class PrintStruk extends Page
             'transaksi' => $this->transaksi,
         ]);
 
-        return response()->streamDownload(
-            fn () => print($pdf->output()),
-            "struk-{$this->transaksi->invoice}.pdf"
-        );
+        return $pdf->stream("struk-{$this->transaksi->invoice}.pdf");
     }
 }

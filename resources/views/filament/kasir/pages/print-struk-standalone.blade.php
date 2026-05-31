@@ -96,10 +96,8 @@
         </div>
     </div>
 
-    <script>
-        window.onload = function() {
-            setTimeout(function() { window.print(); }, 500);
-        };
-    </script>
+    <div style="text-align:center;margin-top:20px;padding-top:10px;border-top:1px dashed #000;">
+        <button onclick="window.print()" style="padding:8px 24px;font-size:14px;cursor:pointer;background:#000;color:#fff;border:none;border-radius:4px;">Cetak Struk</button>
+    </div>
 </body>
 </html>
