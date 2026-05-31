@@ -587,16 +587,14 @@ function checkoutApp() {
             axios.post('/api/checkout', payload, {
                 headers: { Authorization: 'Bearer ' + token }
             }).then(res => {
-                this.submitting = false;
                 if (res.data.snap_token) {
                     if (typeof snap !== 'undefined') {
                         let snapCallbackFired = false;
                         const snapTimeout = setTimeout(() => {
                             if (!snapCallbackFired) {
-                                this.submitting = false;
                                 window.location.href = '{{ route("orders") }}';
                             }
-                        }, 10000);
+                        }, 3000);
                         try {
                             snap.pay(res.data.snap_token, {
                                 onSuccess: async () => {
@@ -627,11 +625,10 @@ function checkoutApp() {
                         } catch (e) {
                             clearTimeout(snapTimeout);
                             console.error('snap.pay error:', e);
-                            showToast('Gagal membuka pembayaran: ' + e.message, 'error');
-                            this.submitting = false;
+                            window.location.href = '{{ route("orders") }}';
                         }
                     } else {
-                        showToast('Gagal memuat pembayaran. Muat ulang halaman.', 'error');
+                        window.location.href = '{{ route("orders") }}';
                     }
                 } else {
                     showToast('Pesanan berhasil dibuat!', 'success');
