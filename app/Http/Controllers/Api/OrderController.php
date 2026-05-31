@@ -144,6 +144,24 @@ class OrderController extends Controller
         ]);
     }
 
+    public function confirmPayment(Request $request, Transaksi $transaksi): JsonResponse
+    {
+        if ($transaksi->user_id !== $request->user()->id) {
+            return response()->json(['message' => 'Bukan pesanan Anda'], 403);
+        }
+
+        if ($transaksi->status_pembayaran === 'lunas') {
+            return response()->json(['message' => 'Sudah dibayar'], 400);
+        }
+
+        $transaksi->update(['status_pembayaran' => 'lunas', 'status_pesanan' => 'diproses']);
+
+        return response()->json([
+            'message' => 'Pembayaran berhasil dikonfirmasi',
+            'transaksi' => $transaksi->fresh()->load('detailTransaksis.menu', 'detailTransaksis.variant'),
+        ]);
+    }
+
     private function computeOptionsHash(array $selectedOptions): ?string
     {
         if (empty($selectedOptions)) {

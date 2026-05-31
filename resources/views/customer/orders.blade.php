@@ -354,10 +354,13 @@ function orderApp() {
                         onSuccess: () => {
                             snapCallbackFired = true;
                             clearTimeout(snapTimeout);
-                            fetch('/orders/confirm/' + order.id, {
-                                method: 'POST',
-                                headers: { 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || '' }
-                            }).then(() => { this.loadOrders(); }).catch(() => { this.loadOrders(); });
+                            const token = getToken();
+                            axios.post('/api/orders/' + order.id + '/confirm-payment', {}, {
+                                headers: { Authorization: 'Bearer ' + token }
+                            }).finally(() => {
+                                this.payToken = null;
+                                this.loadOrders();
+                            });
                         },
                         onPending: () => {
                             snapCallbackFired = true;

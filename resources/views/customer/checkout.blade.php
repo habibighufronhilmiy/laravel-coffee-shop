@@ -594,19 +594,15 @@ function checkoutApp() {
                             if (!snapCallbackFired) {
                                 window.location.href = '{{ route("orders") }}';
                             }
-                        }, 3000);
+                        }, 10000);
                         try {
                             snap.pay(res.data.snap_token, {
                                 onSuccess: async () => {
                                     snapCallbackFired = true;
                                     clearTimeout(snapTimeout);
                                     try {
-                                        await fetch('/orders/confirm/' + res.data.transaksi.id, {
-                                            method: 'POST',
-                                            headers: {
-                                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                                                'Content-Type': 'application/json'
-                                            }
+                                        await axios.post('/api/orders/' + res.data.transaksi.id + '/confirm-payment', {}, {
+                                            headers: { Authorization: 'Bearer ' + token }
                                         });
                                     } catch (e) { /* ignore */ }
                                     window.location.href = '{{ route("orders") }}';
