@@ -4,6 +4,7 @@ use App\Http\Controllers\Web\AuthController;
 use App\Models\DetailTransaksi;
 use App\Models\Transaksi;
 use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -65,6 +66,17 @@ Route::middleware('auth')->group(function () {
     $transaksi->load(['detailTransaksis.menu', 'user', 'kasir', 'outlet']);
     return view('filament.kasir.pages.print-struk-standalone', compact('transaksi'));
 })->name('cetak-struk')->middleware('auth');
+
+Route::get('/download-struk-pdf/{transaksi}', function (Transaksi $transaksi) {
+    $user = auth()->user();
+    abort_unless($user && in_array($user->role, ['kasir', 'admin']), 403);
+    $transaksi->load(['detailTransaksis.menu', 'user', 'kasir', 'outlet']);
+    $pdf = Pdf::loadView('filament.kasir.pages.print-struk-pdf', ['transaksi' => $transaksi]);
+    return response()->streamDownload(
+        fn () => print($pdf->output()),
+        "struk-{$transaksi->invoice}.pdf"
+    );
+})->name('download-struk-pdf')->middleware('auth');
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });

@@ -8,7 +8,6 @@ use App\Models\LoyaltyPoint;
 use App\Models\Menu;
 use App\Models\MenuVariant;
 use App\Models\Transaksi;
-use Barryvdh\DomPDF\Facade\Pdf;
 use Filament\Actions\Action;
 use Filament\Actions\ActionGroup;
 use Filament\Actions\BulkActionGroup;
@@ -192,16 +191,7 @@ class TransaksisTable
                     Action::make('download_pdf')
                         ->label('Download PDF')
                         ->icon('heroicon-o-arrow-down-tray')
-                        ->action(function (Transaksi $record) {
-                            $record->load(['detailTransaksis.menu', 'user', 'kasir', 'outlet']);
-                            $pdf = Pdf::loadView('filament.kasir.pages.print-struk-pdf', [
-                                'transaksi' => $record,
-                            ]);
-                            return response()->streamDownload(
-                                fn () => print($pdf->output()),
-                                "struk-{$record->id}.pdf"
-                            );
-                        }),
+                        ->url(fn($record): string => route('download-struk-pdf', $record->id)),
                 ]),
                 EditAction::make(),
             ])
