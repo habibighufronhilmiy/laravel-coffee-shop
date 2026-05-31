@@ -61,12 +61,12 @@ class KasirPanelProvider extends PanelProvider
             ->bootUsing(function (Panel $panel): void {
                 \Filament\Support\Facades\FilamentView::registerRenderHook(
                     PanelsRenderHook::AUTH_LOGIN_FORM_BEFORE,
-                    fn (): string => Blade::render('<div class="text-center mb-6"><div class="mx-auto w-20 h-20 bg-gradient-to-br from-blue-600 to-blue-400 rounded-2xl shadow-lg flex items-center justify-center mb-4 ring-4 ring-white"><img src="/img/logo_tens2.jpg" alt="Tens Coffee" class="w-11 h-11 object-contain rounded-lg"></div><h1 class="text-2xl font-extrabold text-gray-900">Selamat Datang</h1><p class="text-sm text-gray-500 mt-1">Panel Kasir Tens Coffee</p></div>'),
+                    fn (): string => Blade::render('<div id="login-header" class="mb-6"><div class="logo-wrap" style="width:5rem;height:5rem;border-radius:1rem;background:linear-gradient(135deg,#2563eb,#818cf8);box-shadow:0 10px 15px -3px rgba(0,0,0,0.1);margin:0 auto 1rem;outline:4px solid white"><img src="/img/logo_tens2.jpg" alt="Tens Coffee" style="width:2.75rem;height:2.75rem;object-fit:contain;border-radius:0.5rem"></div><h1 style="font-size:1.5rem;font-weight:800;color:#111827;margin:0 0 0.25rem">Selamat Datang</h1><p style="font-size:0.875rem;color:#6b7280;margin:0">Panel Kasir Tens Coffee</p></div>'),
                 );
 
                 \Filament\Support\Facades\FilamentView::registerRenderHook(
                     PanelsRenderHook::HEAD_START,
-                    fn (): string => Blade::render('<style>.fi-simple-header{display:none}</style>'),
+                    fn (): string => Blade::render('<style>.fi-simple-header{display:none}#login-header{text-align:center}#login-header .logo-wrap{display:inline-flex;align-items:center;justify-content:center}</style>'),
                 );
             });
     }
