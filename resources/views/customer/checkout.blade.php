@@ -590,9 +590,18 @@ function checkoutApp() {
                 this.submitting = false;
                 if (res.data.snap_token) {
                     if (typeof snap !== 'undefined') {
+                        let snapCallbackFired = false;
+                        const snapTimeout = setTimeout(() => {
+                            if (!snapCallbackFired) {
+                                this.submitting = false;
+                                window.location.href = '{{ route("orders") }}';
+                            }
+                        }, 10000);
                         try {
                             snap.pay(res.data.snap_token, {
                                 onSuccess: async () => {
+                                    snapCallbackFired = true;
+                                    clearTimeout(snapTimeout);
                                     try {
                                         await fetch('/orders/confirm/' + res.data.transaksi.id, {
                                             method: 'POST',
@@ -604,10 +613,19 @@ function checkoutApp() {
                                     } catch (e) { /* ignore */ }
                                     window.location.href = '{{ route("orders") }}';
                                 },
-                                onPending: () => { window.location.href = '{{ route("orders") }}'; },
-                                onError: () => { window.location.href = '{{ route("orders") }}'; }
+                                onPending: () => {
+                                    snapCallbackFired = true;
+                                    clearTimeout(snapTimeout);
+                                    window.location.href = '{{ route("orders") }}';
+                                },
+                                onError: () => {
+                                    snapCallbackFired = true;
+                                    clearTimeout(snapTimeout);
+                                    window.location.href = '{{ route("orders") }}';
+                                }
                             });
                         } catch (e) {
+                            clearTimeout(snapTimeout);
                             console.error('snap.pay error:', e);
                             showToast('Gagal membuka pembayaran: ' + e.message, 'error');
                             this.submitting = false;

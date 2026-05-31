@@ -341,20 +341,44 @@ function orderApp() {
         bayarSekarang(order) {
             this.payToken = order.id;
             const pay = (token) => {
-                snap.pay(token, {
-                    onSuccess: () => {
-                        fetch('/orders/confirm/' + order.id, {
-                            method: 'POST',
-                            headers: { 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || '' }
-                        }).then(() => { this.loadOrders(); }).catch(() => { this.loadOrders(); });
-                    },
-                    onPending: () => { this.payToken = null; order.midtrans_snap_token = null; },
-                    onError: () => {
+                let snapCallbackFired = false;
+                const snapTimeout = setTimeout(() => {
+                    if (!snapCallbackFired) {
                         this.payToken = null;
                         order.midtrans_snap_token = null;
-                        window.dispatchEvent(new CustomEvent('toast', { detail: { message: 'Pembayaran dibatalkan', type: 'error' } }));
+                        this.loadOrders();
                     }
-                });
+                }, 10000);
+                try {
+                    snap.pay(token, {
+                        onSuccess: () => {
+                            snapCallbackFired = true;
+                            clearTimeout(snapTimeout);
+                            fetch('/orders/confirm/' + order.id, {
+                                method: 'POST',
+                                headers: { 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || '' }
+                            }).then(() => { this.loadOrders(); }).catch(() => { this.loadOrders(); });
+                        },
+                        onPending: () => {
+                            snapCallbackFired = true;
+                            clearTimeout(snapTimeout);
+                            this.payToken = null;
+                            order.midtrans_snap_token = null;
+                        },
+                        onError: () => {
+                            snapCallbackFired = true;
+                            clearTimeout(snapTimeout);
+                            this.payToken = null;
+                            order.midtrans_snap_token = null;
+                            window.dispatchEvent(new CustomEvent('toast', { detail: { message: 'Pembayaran dibatalkan', type: 'error' } }));
+                        }
+                    });
+                } catch (e) {
+                    clearTimeout(snapTimeout);
+                    this.payToken = null;
+                    order.midtrans_snap_token = null;
+                    window.dispatchEvent(new CustomEvent('toast', { detail: { message: 'Gagal membuka pembayaran: ' + e.message, type: 'error' } }));
+                }
             };
             if (order.midtrans_snap_token) {
                 pay(order.midtrans_snap_token);
