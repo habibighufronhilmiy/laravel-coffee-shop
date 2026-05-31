@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>Struk {{ $transaksi->invoice ?? '#' . $transaksi->id }}</title>
     <style>
-        body { font-family: Courier, 'DejaVu Sans Mono', monospace; font-size: 12px; margin: 0; padding: 20px; color: #000; }
+        body { font-family: 'DejaVu Sans Mono', Courier, monospace; font-size: 11px; margin: 0; padding: 20px; color: #000; }
         .header { text-align: center; border-bottom: 1px dashed #000; padding-bottom: 10px; margin-bottom: 10px; }
         .header h2 { margin: 0; font-size: 18px; color: #000; }
         .header p { margin: 2px 0; font-size: 11px; color: #000; }
