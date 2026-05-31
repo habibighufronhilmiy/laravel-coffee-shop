@@ -92,4 +92,26 @@ class Transaksi extends Model
     {
         return $this->hasOne(VoucherPakai::class);
     }
+
+    public function restorePoin(): void
+    {
+        if ($this->diskon_poin <= 0) return;
+        if (!$this->relationLoaded('user')) $this->load('user');
+        if (!$this->user) return;
+
+        $poinToRestore = (int) ($this->diskon_poin / 100);
+        if ($poinToRestore <= 0) return;
+
+        $this->user->increment('poin', $poinToRestore);
+
+        LoyaltyPoint::create([
+            'user_id' => $this->user_id,
+            'points' => $poinToRestore,
+            'type' => 'restored',
+            'description' => "Poin dikembalikan dari pesanan #{$this->invoice} yang dibatalkan",
+            'transaksi_id' => $this->id,
+        ]);
+
+        $this->update(['diskon_poin' => 0]);
+    }
 }

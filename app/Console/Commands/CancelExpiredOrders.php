@@ -35,6 +35,8 @@ class CancelExpiredOrders extends Command
                     }
                 }
 
+                $transaksi->restorePoin();
+
                 $count++;
             });
         }

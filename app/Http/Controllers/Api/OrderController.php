@@ -68,6 +68,8 @@ class OrderController extends Controller
                     Menu::where('id', $detail->menu_id)->increment('stok', $detail->jumlah);
                 }
             }
+
+            $transaksi->restorePoin();
         });
 
         return response()->json([

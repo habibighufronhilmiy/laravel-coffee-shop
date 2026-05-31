@@ -5,6 +5,8 @@ namespace App\Filament\Kasir\Resources\Transaksis\Tables;
 use App\Filament\Kasir\Resources\Transaksis\TransaksiResource;
 use App\Http\Controllers\Api\LoyaltyController;
 use App\Models\LoyaltyPoint;
+use App\Models\Menu;
+use App\Models\MenuVariant;
 use App\Models\Transaksi;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Filament\Actions\Action;
@@ -15,6 +17,7 @@ use Filament\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\DB;
 
 class TransaksisTable
 {
@@ -162,8 +165,22 @@ class TransaksisTable
                             $record->status_pesanan === 'pending' || $record->status_pesanan === 'diproses')
                         ->requiresConfirmation()
                         ->action(function (Transaksi $record) {
-                            $record->update(['status_pesanan' => 'dibatalkan']);
-                            notify('Sukses', 'Pesanan dibatalkan')
+                            DB::transaction(function () use ($record) {
+                                $record->update(['status_pesanan' => 'dibatalkan']);
+
+                                $record->loadMissing('detailTransaksis.menu', 'detailTransaksis.variant');
+                                foreach ($record->detailTransaksis as $detail) {
+                                    if ($detail->menu_variant_id && $detail->variant?->stok !== null) {
+                                        MenuVariant::where('id', $detail->menu_variant_id)->increment('stok', $detail->jumlah);
+                                    } else {
+                                        Menu::where('id', $detail->menu_id)->increment('stok', $detail->jumlah);
+                                    }
+                                }
+
+                                $record->restorePoin();
+                            });
+
+                            notify('Sukses', 'Pesanan dibatalkan, stok dan poin dikembalikan')
                                 ->success()
                                 ->send();
                         }),

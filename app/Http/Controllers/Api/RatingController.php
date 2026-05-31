@@ -3,16 +3,17 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Menu;
 use App\Models\Rating;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class RatingController extends Controller
 {
-    public function index(Request $request): JsonResponse
+    public function index(Request $request, Menu $menu): JsonResponse
     {
         $ratings = Rating::with('user:id,name,avatar')
-            ->where('menu_id', $request->menu_id)
+            ->where('menu_id', $menu->id)
             ->latest()
             ->get();
 

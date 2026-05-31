@@ -51,12 +51,14 @@ class MidtransController extends Controller
                 if (!in_array($transaksi->status_pembayaran, ['lunas', 'expired'])) {
                     $transaksi->update(['status_pembayaran' => 'gagal', 'status_pesanan' => 'dibatalkan']);
                     $this->restoreStock($transaksi);
+                    $transaksi->restorePoin();
                     $transaksi->user?->notify(new OrderStatusNotification($transaksi, 'Pembayaran gagal.'));
                 }
             } elseif ($transactionStatus === 'expire') {
                 if (!in_array($transaksi->status_pembayaran, ['lunas', 'gagal'])) {
                     $transaksi->update(['status_pembayaran' => 'expired', 'status_pesanan' => 'dibatalkan']);
                     $this->restoreStock($transaksi);
+                    $transaksi->restorePoin();
                     $transaksi->user?->notify(new OrderStatusNotification($transaksi, 'Waktu pembayaran habis. Pesanan dibatalkan.'));
                 }
             }
