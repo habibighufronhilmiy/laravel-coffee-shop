@@ -71,7 +71,7 @@ class AdminPanelProvider extends PanelProvider
 
                 \Filament\Support\Facades\FilamentView::registerRenderHook(
                     PanelsRenderHook::HEAD_START,
-                    fn (): string => Blade::render('<style>.fi-simple-header{display:none}.fi-simple-layout{background:#f1f5f9}.fi-simple-page-content{background:#fff;border-radius:1rem;box-shadow:0 4px 24px rgba(0,0,0,0.06);border:1px solid #e2e8f0}#login-header{text-align:center}#login-header .logo-wrap{display:inline-flex;align-items:center;justify-content:center}#login-header h1{color:#000!important}#login-header p{color:#374151!important}</style>'),
+                    fn (): string => Blade::render('<style>.fi-simple-header{display:none}.fi-simple-layout{background:linear-gradient(135deg,#0b1120,#172554,#1e40af)}.fi-simple-page-content{background:#fff;border-radius:1rem;box-shadow:0 4px 24px rgba(0,0,0,0.06);border:1px solid #e2e8f0}#login-header{text-align:center}#login-header .logo-wrap{display:inline-flex;align-items:center;justify-content:center}#login-header h1{color:#000!important}#login-header p{color:#374151!important}</style>'),
                 );
             });
     }
