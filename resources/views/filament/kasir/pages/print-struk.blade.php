@@ -236,7 +236,8 @@
             Download PDF
         </x-filament::button>
         <x-filament::button
-            onclick="window.print()"
+            tag="a"
+            href="{{ route('cetak-struk', $transaksi->id) }}"
             icon="heroicon-o-printer"
             color="success"
             class="ml-2">
@@ -252,10 +253,4 @@
     </div>
 </x-filament-panels::page>
 
-@push('scripts')
-<script>
-    window.onload = function() {
-        setTimeout(function() { window.print(); }, 500);
-    }
-</script>
-@endpush
+

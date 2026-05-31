@@ -187,7 +187,7 @@ class TransaksisTable
                     Action::make('print')
                         ->label('Cetak Struk')
                         ->icon('heroicon-o-printer')
-                        ->url(fn($record): string => TransaksiResource::getUrl('print', ['record' => $record->id])),
+                        ->url(fn($record): string => route('cetak-struk', $record->id)),
                     Action::make('download_pdf')
                         ->label('Download PDF')
                         ->icon('heroicon-o-arrow-down-tray')

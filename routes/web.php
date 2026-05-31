@@ -59,7 +59,14 @@ Route::middleware('auth')->group(function () {
         return redirect()->route('orders')->with('success', 'Pembayaran berhasil dikonfirmasi!');
     })->name('orders.confirm');
 
-    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::get('/cetak-struk/{transaksi}', function (Transaksi $transaksi) {
+    $user = auth()->user();
+    abort_unless($user && in_array($user->role, ['kasir', 'admin']), 403);
+    $transaksi->load(['detailTransaksis.menu', 'user', 'kasir', 'outlet']);
+    return view('filament.kasir.pages.print-struk-standalone', compact('transaksi'));
+})->name('cetak-struk')->middleware('auth');
+
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
 Route::get('/laporan/export', function () {
