@@ -10,13 +10,13 @@
             font-family: 'Courier New', 'Consolas', monospace;
             font-size: 13px;
             line-height: 1.5;
-            color: #1f2937;
+            color: #000;
         }
         .receipt-wrapper td {
-            color: #1f2937;
+            color: #000;
         }
         .receipt-wrapper th {
-            color: #374151;
+            color: #000;
         }
         .receipt-header {
             text-align: center;
@@ -31,7 +31,7 @@
         }
         .receipt-header p {
             margin: 0;
-            color: #6b7280;
+            color: #000;
             font-size: 11px;
         }
         .receipt-info {
@@ -99,7 +99,7 @@
         .receipt-footer {
             text-align: center;
             font-size: 12px;
-            color: #6b7280;
+            color: #000;
         }
         .no-print {
             text-align: center;

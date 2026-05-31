@@ -4,30 +4,31 @@
     <meta charset="utf-8">
     <title>Struk {{ $transaksi->invoice ?? '#' . $transaksi->id }}</title>
     <style>
-        body { font-family: 'Courier New', monospace; font-size: 12px; margin: 0; padding: 20px; color: #000; background: #fff; }
-        .header { text-align: center; border-bottom: 1px dashed #000; padding-bottom: 10px; margin-bottom: 10px; }
-        .header h2 { margin: 0; font-size: 18px; color: #000; }
-        .header p { margin: 2px 0; font-size: 11px; color: #000; }
-        .info { border-bottom: 1px dashed #000; padding-bottom: 8px; margin-bottom: 8px; }
+        * { color: #000000 !important; }
+        body { font-family: 'Courier New', Courier, 'Courier Prime', monospace; font-size: 12px; margin: 0; padding: 20px; background: #ffffff; }
+        .header { text-align: center; border-bottom: 1px dashed #000000; padding-bottom: 10px; margin-bottom: 10px; }
+        .header h2 { margin: 0; font-size: 18px; font-weight: bold; }
+        .header p { margin: 2px 0; font-size: 11px; }
+        .info { border-bottom: 1px dashed #000000; padding-bottom: 8px; margin-bottom: 8px; }
         .info table { width: 100%; font-size: 11px; }
-        .info td { padding: 2px 0; color: #000; }
+        .info td { padding: 2px 0; }
         .info td:last-child { text-align: right; }
-        .items { border-bottom: 1px dashed #000; padding-bottom: 8px; margin-bottom: 8px; }
+        .items { border-bottom: 1px dashed #000000; padding-bottom: 8px; margin-bottom: 8px; }
         .items table { width: 100%; font-size: 11px; border-collapse: collapse; }
-        .items th { text-align: left; border-bottom: 1px solid #000; padding: 3px 0; font-size: 10px; color: #000; }
+        .items th { text-align: left; border-bottom: 1px solid #000000; padding: 3px 0; font-size: 10px; font-weight: bold; }
         .items th:last-child, .items td:last-child { text-align: right; }
-        .items td { padding: 3px 0; vertical-align: top; color: #000; }
-        .total { border-bottom: 1px dashed #000; padding-bottom: 8px; margin-bottom: 10px; }
+        .items td { padding: 3px 0; vertical-align: top; }
+        .total { border-bottom: 1px dashed #000000; padding-bottom: 8px; margin-bottom: 10px; }
         .total table { width: 100%; font-size: 11px; }
-        .total td { padding: 2px 0; color: #000; }
+        .total td { padding: 2px 0; }
         .total td:last-child { text-align: right; font-weight: bold; }
-        .grand-total td { font-size: 14px; font-weight: bold; border-top: 1px solid #000; padding-top: 4px; color: #000; }
-        .footer { text-align: center; font-size: 11px; color: #000; }
+        .grand-total td { font-size: 14px; font-weight: bold; border-top: 1px solid #000000; padding-top: 4px; }
+        .footer { text-align: center; font-size: 11px; }
     </style>
 </head>
 <body>
     <div class="header">
-        <h2><img src="{{ public_path('img/logo_tens2.jpg') }}" alt="Tens Coffee" style="height: 20px; vertical-align: middle;"> Tens Coffee</h2>
+        <h2><img src="{{ public_path('img/logo_tens2.jpg') }}" alt="Tens Coffee" style="height: 20px; vertical-align: middle; color: #000000 !important;"> Tens Coffee</h2>
         <p>Struk Pembelian</p>
     </div>
 
@@ -59,7 +60,7 @@
                     <td>Rp{{ number_format($detail->subtotal, 0, ',', '.') }}</td>
                 </tr>
                 @empty
-                <tr><td colspan="3" style="text-align:center;color:#999;">Tidak ada item</td></tr>
+                <tr><td colspan="3" style="text-align:center;">Tidak ada item</td></tr>
                 @endforelse
             </tbody>
         </table>
