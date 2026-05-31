@@ -99,6 +99,7 @@ class TransaksisTable
                     ]),
             ])
             ->defaultSort('created_at', 'desc')
+            ->searchDebounce('1500ms')
             ->recordActions([
                 ActionGroup::make([
                     Action::make('proses')
