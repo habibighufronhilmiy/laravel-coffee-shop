@@ -49,17 +49,19 @@ class LoyaltyController extends Controller
     {
         $user = $request->user();
         $validated = $request->validate([
-            'points' => 'required|integer|min:' . self::REDEEM_RATE,
+            'points' => 'required|integer|min:1',
         ]);
 
         $points = $validated['points'];
-        $discount = (int) ($points / self::REDEEM_RATE) * self::REDEEM_VALUE;
 
         if ($points > $user->poin) {
             return response()->json([
                 'message' => 'Poin tidak mencukupi. Saldo Anda: ' . $user->poin,
             ], 400);
         }
+
+        $nilaiPerPoin = (int) (self::REDEEM_VALUE / self::REDEEM_RATE);
+        $discount = $points * $nilaiPerPoin;
 
         return response()->json([
             'discount' => $discount,

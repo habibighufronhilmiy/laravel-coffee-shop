@@ -201,14 +201,14 @@
                                 <span class="font-semibold text-purple-700">🎖️ Poin Loyalty</span>
                                 <span class="text-purple-700 font-bold" x-text="poinBalance + ' poin'"></span>
                             </div>
-                            <p class="text-xs text-purple-500 mb-2">100 poin = Rp 10.000 diskon. Masukkan jumlah poin yang ingin ditukar:</p>
+                            <p class="text-xs text-purple-500 mb-2">1 poin = Rp 100 diskon. Masukkan jumlah poin yang ingin ditukar:</p>
                             <div class="flex gap-2">
-                                <input type="number" x-model.number="poinInput" min="0" :max="Math.floor(poinBalance / 100) * 100" step="100"
+                                <input type="number" x-model.number="poinInput" min="0" :max="poinBalance" step="1"
                                     class="flex-1 border border-purple-200 rounded-xl px-4 py-2 text-sm focus:ring-2 focus:ring-purple-500 focus:border-purple-500 bg-white"
                                     placeholder="0">
-                                <button @click="pakaiPoin()"
-                                    class="bg-purple-600 text-white px-4 py-2 rounded-xl text-sm font-medium hover:bg-purple-700 transition disabled:opacity-50"
-                                    :disabled="!poinInput || poinInput < 100 || poinInput > poinBalance">
+                        <button @click="pakaiPoin()"
+                            class="bg-purple-600 text-white px-4 py-2 rounded-xl text-sm font-medium hover:bg-purple-700 transition disabled:opacity-50"
+                            :disabled="!poinInput || poinInput < 1 || poinInput > poinBalance">
                                     Pakai
                                 </button>
                             </div>
@@ -528,11 +528,9 @@ function checkoutApp() {
 
         pakaiPoin() {
             const pts = parseInt(this.poinInput);
-            if (!pts || pts < 100 || pts > this.poinBalance) return;
-            const used = Math.floor(pts / 100) * 100;
-            const discount = (used / 100) * 10000;
-            this.poinDipakai = used;
-            this.diskonPoin = discount;
+            if (!pts || pts < 1 || pts > this.poinBalance) return;
+            this.poinDipakai = pts;
+            this.diskonPoin = pts * 100;
         },
 
         batalkanPoin() {

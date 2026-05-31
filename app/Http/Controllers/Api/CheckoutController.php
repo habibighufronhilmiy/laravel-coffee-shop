@@ -112,14 +112,12 @@ class CheckoutController extends Controller
                     if ($poinDipakai > $user->poin) {
                         throw new \RuntimeException(json_encode(['message' => 'Poin tidak mencukupi.']));
                     }
-                    if ($poinDipakai % LoyaltyController::REDEEM_RATE !== 0) {
-                        throw new \RuntimeException(json_encode(['message' => 'Jumlah poin harus kelipatan ' . LoyaltyController::REDEEM_RATE . '.']));
-                    }
-                    $diskonPoin = (int) ($poinDipakai / LoyaltyController::REDEEM_RATE) * LoyaltyController::REDEEM_VALUE;
+                    $nilaiPerPoin = (int) (LoyaltyController::REDEEM_VALUE / LoyaltyController::REDEEM_RATE);
+                    $diskonPoin = $poinDipakai * $nilaiPerPoin;
                     if ($diskonPoin > $totalSetelahDiskon) {
                         $diskonPoin = $totalSetelahDiskon;
-                        $poinDipakai = (int) (floor($diskonPoin / LoyaltyController::REDEEM_VALUE) * LoyaltyController::REDEEM_RATE);
-                        $diskonPoin = (int) ($poinDipakai / LoyaltyController::REDEEM_RATE) * LoyaltyController::REDEEM_VALUE;
+                        $poinDipakai = (int) ($diskonPoin / $nilaiPerPoin);
+                        $diskonPoin = $poinDipakai * $nilaiPerPoin;
                     }
                 }
                 $totalSetelahDiskon -= $diskonPoin;
