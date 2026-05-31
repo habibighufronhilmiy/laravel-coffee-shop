@@ -230,17 +230,9 @@
     <div class="no-print">
         <x-filament::button
             tag="a"
-            href="{{ \App\Filament\Kasir\Resources\Transaksis\TransaksiResource::getUrl('print', ['record' => $transaksi->id]) }}?download=1"
-            icon="heroicon-o-arrow-down-tray"
-            color="primary">
-            Download PDF
-        </x-filament::button>
-        <x-filament::button
-            tag="a"
             href="{{ route('cetak-struk', $transaksi->id) }}"
             icon="heroicon-o-printer"
-            color="success"
-            class="ml-2">
+            color="success">
             Cetak Struk
         </x-filament::button>
         <x-filament::button
