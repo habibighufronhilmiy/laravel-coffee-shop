@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\LoyaltyPoint;
 
 class Transaksi extends Model
 {
@@ -98,6 +99,12 @@ class Transaksi extends Model
         if ($this->diskon_poin <= 0) return;
         if (!$this->relationLoaded('user')) $this->load('user');
         if (!$this->user) return;
+
+        $sudahDeduct = LoyaltyPoint::where('transaksi_id', $this->id)
+            ->where('type', 'redeem')
+            ->exists();
+
+        if (!$sudahDeduct) return;
 
         $poinToRestore = (int) ($this->diskon_poin / 100);
         if ($poinToRestore <= 0) return;

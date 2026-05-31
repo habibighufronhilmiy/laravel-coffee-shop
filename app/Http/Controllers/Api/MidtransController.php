@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\LoyaltyPoint;
 use App\Models\Menu;
 use App\Models\MenuVariant;
 use App\Models\Transaksi;
@@ -46,6 +47,21 @@ class MidtransController extends Controller
             if (in_array($transactionStatus, ['capture', 'settlement']) && $fraudStatus === 'accept') {
                 $transaksi->where('status_pembayaran', '!=', 'lunas')
                     ->update(['status_pembayaran' => 'lunas', 'status_pesanan' => 'diproses']);
+
+                if ($transaksi->diskon_poin > 0) {
+                    $poinDipakai = (int) ($transaksi->diskon_poin / 100);
+                    if ($poinDipakai > 0) {
+                        $transaksi->user?->decrement('poin', $poinDipakai);
+                        LoyaltyPoint::create([
+                            'user_id' => $transaksi->user_id,
+                            'points' => -$poinDipakai,
+                            'type' => 'redeem',
+                            'description' => "Tukar poin untuk pesanan #{$transaksi->invoice}",
+                            'transaksi_id' => $transaksi->id,
+                        ]);
+                    }
+                }
+
                 $transaksi->user?->notify(new OrderStatusNotification($transaksi, 'Pembayaran berhasil! Pesanan sedang diproses.'));
             } elseif (in_array($transactionStatus, ['deny', 'cancel'])) {
                 if (!in_array($transaksi->status_pembayaran, ['lunas', 'expired'])) {

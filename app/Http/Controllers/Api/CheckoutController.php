@@ -200,7 +200,7 @@ class CheckoutController extends Controller
                     ]);
                 }
 
-                if ($poinDipakai > 0) {
+                if ($poinDipakai > 0 && $validated['metode_pembayaran'] === 'cash') {
                     LoyaltyPoint::create([
                         'user_id' => $userId,
                         'points' => -$poinDipakai,
