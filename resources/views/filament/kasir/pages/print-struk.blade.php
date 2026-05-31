@@ -10,13 +10,13 @@
             font-family: 'Courier New', 'Consolas', monospace;
             font-size: 13px;
             line-height: 1.5;
-            color: #000;
+            color: #000 !important;
         }
         .receipt-wrapper td {
-            color: #000;
+            color: #000 !important;
         }
         .receipt-wrapper th {
-            color: #000;
+            color: #000 !important;
         }
         .receipt-header {
             text-align: center;
@@ -31,7 +31,7 @@
         }
         .receipt-header p {
             margin: 0;
-            color: #000;
+            color: #000 !important;
             font-size: 11px;
         }
         .receipt-info {
@@ -99,7 +99,7 @@
         .receipt-footer {
             text-align: center;
             font-size: 12px;
-            color: #000;
+            color: #000 !important;
         }
         .no-print {
             text-align: center;
@@ -111,13 +111,17 @@
             .fi-topbar { display: none !important; }
             .fi-sidebar-layout { display: block !important; }
             .fi-sidebar-layout > .fi-sidebar-layout-content { margin-left: 0 !important; max-width: 100% !important; padding: 0 !important; }
-            body { background: #fff !important; color: #000 !important; }
+            * { color: #000 !important; }
+            body { background: #fff !important; color: #000 !important; print-color-adjust: exact !important; -webkit-print-color-adjust: exact !important; }
             .receipt-wrapper {
                 border: none !important;
                 box-shadow: none !important;
                 border-radius: 0 !important;
                 padding: 0 !important;
                 max-width: 100% !important;
+                color: #000 !important;
+                print-color-adjust: exact !important;
+                -webkit-print-color-adjust: exact !important;
             }
             .receipt-header h2 { font-size: 18px; color: #000 !important; }
             .receipt-header p { font-size: 10px; color: #000 !important; }
