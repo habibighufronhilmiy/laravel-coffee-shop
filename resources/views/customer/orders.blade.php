@@ -348,9 +348,10 @@ function orderApp() {
                             headers: { 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || '' }
                         }).then(() => { this.loadOrders(); }).catch(() => { this.loadOrders(); });
                     },
-                    onPending: () => { this.payToken = null; },
+                    onPending: () => { this.payToken = null; order.midtrans_snap_token = null; },
                     onError: () => {
                         this.payToken = null;
+                        order.midtrans_snap_token = null;
                         window.dispatchEvent(new CustomEvent('toast', { detail: { message: 'Pembayaran dibatalkan', type: 'error' } }));
                     }
                 });
