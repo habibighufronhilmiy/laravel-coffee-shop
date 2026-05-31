@@ -29,6 +29,7 @@
         @media print {
             body { padding: 0; }
             @page { margin: 0; size: 80mm auto; }
+            .no-print { display: none !important; }
         }
     </style>
 </head>
@@ -96,7 +97,7 @@
         </div>
     </div>
 
-    <div style="text-align:center;margin-top:20px;padding-top:10px;border-top:1px dashed #000;">
+    <div class="no-print" style="text-align:center;margin-top:20px;padding-top:10px;border-top:1px dashed #000;">
         <button onclick="window.print()" style="padding:8px 24px;font-size:14px;cursor:pointer;background:#000;color:#fff;border:none;border-radius:4px;">Cetak Struk</button>
     </div>
 </body>
