@@ -61,7 +61,7 @@ class KasirPanelProvider extends PanelProvider
             ->bootUsing(function (Panel $panel): void {
                 \Filament\Support\Facades\FilamentView::registerRenderHook(
                     PanelsRenderHook::AUTH_LOGIN_FORM_BEFORE,
-                    fn (): string => Blade::render('<div class="text-center mb-6"><img src="/img/logo_tens2.jpg" alt="Tens Coffee" class="h-16 w-auto block mx-auto mb-2"><h1 class="text-2xl font-bold text-gray-900">Selamat Datang</h1><p class="text-sm text-gray-500">Panel Kasir Tens Coffee</p></div>'),
+                    fn (): string => Blade::render('<div class="mb-6" style="text-align:center"><img src="/img/logo_tens2.jpg" alt="Tens Coffee" style="height:4rem;width:auto;display:block;margin:0 auto 0.5rem"><h1 class="text-2xl font-bold text-gray-900" style="text-align:center">Selamat Datang</h1><p class="text-sm text-gray-500" style="text-align:center">Panel Kasir Tens Coffee</p></div>'),
                 );
             });
     }
