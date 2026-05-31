@@ -64,12 +64,12 @@
                             </div>
                             <span class="text-gray-400 text-xs" x-text="'× ' + item.jumlah + ' item'"></span>
                         </div>
-                        <span class="font-medium text-gray-800" x-text="'Rp ' + item.subtotal.toLocaleString('id-ID')"></span>
+                        <span class="font-medium text-gray-800" x-text="'Rp' + item.subtotal.toLocaleString('id-ID')"></span>
                     </div>
                 </template>
                 <div class="flex justify-between text-xl font-bold mt-4 pt-4 border-t border-gray-100">
                     <span>Total Menu</span>
-                    <span class="text-blue-700" x-text="'Rp ' + total.toLocaleString('id-ID')"></span>
+                    <span class="text-blue-700" x-text="'Rp' + total.toLocaleString('id-ID')"></span>
                 </div>
             </div>
 
@@ -161,7 +161,7 @@
                     <div x-show="ongkir !== null && !ongkirLoading" class="bg-blue-50 border border-blue-200 rounded-xl p-4">
                         <div class="flex justify-between text-sm">
                             <span class="text-blue-700">Ongkos Kirim</span>
-                            <span class="font-bold text-blue-700" x-text="ongkir > 0 ? 'Rp ' + ongkir.toLocaleString('id-ID') : 'GRATIS'"></span>
+                            <span class="font-bold text-blue-700" x-text="ongkir > 0 ? 'Rp' + ongkir.toLocaleString('id-ID') : 'GRATIS'"></span>
                         </div>
                         <p x-show="total >= 50000" class="text-xs text-green-600 mt-1">🎉 Gratis ongkir untuk minimal belanja Rp50.000</p>
                     </div>
@@ -201,7 +201,7 @@
                                 <span class="font-semibold text-purple-700">🎖️ Poin Loyalty</span>
                                 <span class="text-purple-700 font-bold" x-text="poinBalance + ' poin'"></span>
                             </div>
-                            <p class="text-xs text-purple-500 mb-2">1 poin = Rp 100 diskon. Masukkan jumlah poin yang ingin ditukar:</p>
+                            <p class="text-xs text-purple-500 mb-2">1 poin = Rp100 diskon. Masukkan jumlah poin yang ingin ditukar:</p>
                             <div class="flex gap-2">
                                 <input type="number" x-model.number="poinInput" min="0" :max="poinBalance" step="1"
                                     class="flex-1 border border-purple-200 rounded-xl px-4 py-2 text-sm focus:ring-2 focus:ring-purple-500 focus:border-purple-500 bg-white"
@@ -254,23 +254,23 @@
                 <div class="space-y-2 border-t border-gray-100 pt-4 mb-6">
                     <div class="flex justify-between text-sm text-gray-600">
                         <span>Subtotal</span>
-                        <span x-text="'Rp ' + total.toLocaleString('id-ID')"></span>
+                        <span x-text="'Rp' + total.toLocaleString('id-ID')"></span>
                     </div>
                     <div x-show="voucherTerpakai" class="flex justify-between text-sm text-green-600">
                         <span>Diskon Voucher</span>
-                        <span x-text="'-Rp ' + voucherTerpakai.diskon.toLocaleString('id-ID')"></span>
+                        <span x-text="'-Rp' + voucherTerpakai.diskon.toLocaleString('id-ID')"></span>
                     </div>
                     <div x-show="diskonPoin > 0" class="flex justify-between text-sm text-purple-600">
                         <span>Diskon Poin</span>
-                        <span x-text="'-Rp ' + diskonPoin.toLocaleString('id-ID')"></span>
+                        <span x-text="'-Rp' + diskonPoin.toLocaleString('id-ID')"></span>
                     </div>
                     <div x-show="ongkir !== null && tipePengambilan === 'delivery'" class="flex justify-between text-sm text-blue-600">
                         <span>Ongkos Kirim</span>
-                        <span x-text="ongkir > 0 ? 'Rp ' + ongkir.toLocaleString('id-ID') : 'Gratis'"></span>
+                        <span x-text="ongkir > 0 ? 'Rp' + ongkir.toLocaleString('id-ID') : 'Gratis'"></span>
                     </div>
                     <div class="flex justify-between text-lg font-bold text-gray-800 pt-2 border-t border-gray-100">
                         <span>Total Bayar</span>
-                        <span class="text-blue-700" x-text="'Rp ' + totalBayar.toLocaleString('id-ID')"></span>
+                        <span class="text-blue-700" x-text="'Rp' + totalBayar.toLocaleString('id-ID')"></span>
                     </div>
                 </div>
 

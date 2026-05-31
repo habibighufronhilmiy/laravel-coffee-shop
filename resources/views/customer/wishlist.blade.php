@@ -52,7 +52,7 @@
                         </template>
                         <span class="text-xs text-gray-400 ml-1" x-text="'(' + item.menu.ratings_count + ')'"></span>
                     </div>
-                    <p class="text-blue-700 font-bold text-xl mb-1" x-text="'Rp ' + item.menu?.harga.toLocaleString('id-ID')"></p>
+                    <p class="text-blue-700 font-bold text-xl mb-1" x-text="'Rp' + item.menu?.harga.toLocaleString('id-ID')"></p>
                     <p class="text-xs text-gray-400 mb-4" x-text="item.menu?.kategori?.nama_kategori || ''"></p>
                     <div class="mt-auto flex items-center justify-between pt-3 border-t border-gray-100">
                         <span class="text-sm font-medium" :class="item.menu?.stok > 0 ? 'text-green-600' : 'text-red-500'">

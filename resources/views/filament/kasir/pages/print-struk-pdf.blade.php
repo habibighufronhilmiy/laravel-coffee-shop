@@ -56,7 +56,7 @@
                 <tr>
                     <td>{{ $detail->menu->nama_menu ?? '-' }}</td>
                     <td>{{ $detail->jumlah }}</td>
-                    <td>Rp {{ number_format($detail->subtotal, 0, ',', '.') }}</td>
+                    <td>Rp{{ number_format($detail->subtotal, 0, ',', '.') }}</td>
                 </tr>
                 @empty
                 <tr><td colspan="3" style="text-align:center;color:#999;">Tidak ada item</td></tr>
@@ -68,11 +68,11 @@
     <div class="total">
         <table>
             @if($transaksi->ongkir > 0)
-            <tr><td>Ongkos Kirim</td><td>Rp {{ number_format($transaksi->ongkir, 0, ',', '.') }}</td></tr>
+            <tr><td>Ongkos Kirim</td><td>Rp{{ number_format($transaksi->ongkir, 0, ',', '.') }}</td></tr>
             @endif
             <tr><td>Pembayaran</td><td>{{ $transaksi->metode_pembayaran === 'cash' ? 'Cash' : 'Midtrans' }}</td></tr>
             <tr><td>Status</td><td>{{ $transaksi->status_pembayaran === 'lunas' ? 'Lunas' : 'Belum Dibayar' }}</td></tr>
-            <tr class="grand-total"><td>Total</td><td>Rp {{ number_format($transaksi->total_harga, 0, ',', '.') }}</td></tr>
+            <tr class="grand-total"><td>Total</td><td>Rp{{ number_format($transaksi->total_harga, 0, ',', '.') }}</td></tr>
         </table>
     </div>
 

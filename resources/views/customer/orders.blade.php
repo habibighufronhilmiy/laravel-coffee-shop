@@ -108,13 +108,13 @@
                                     </div>
                                     <span x-text="' × ' + detail.jumlah"></span>
                                 </span>
-                                <span class="font-medium text-gray-700" x-text="'Rp ' + detail.subtotal.toLocaleString('id-ID')"></span>
+                                <span class="font-medium text-gray-700" x-text="'Rp' + detail.subtotal.toLocaleString('id-ID')"></span>
                             </div>
                         </template>
                     </div>
                     <div class="flex justify-between font-bold text-lg mt-4 pt-4 border-t border-gray-100">
                         <span class="text-gray-800">Total</span>
-                        <span class="text-blue-600 font-bold" x-text="'Rp ' + order.total_harga.toLocaleString('id-ID')"></span>
+                        <span class="text-blue-600 font-bold" x-text="'Rp' + order.total_harga.toLocaleString('id-ID')"></span>
                     </div>
 
                     <div class="mt-4 flex gap-2">

@@ -303,7 +303,7 @@ class CheckoutController extends Controller
 
         return response()->json([
             'ongkir' => $ongkir,
-            'total_ongkir_formatted' => 'Rp ' . number_format($ongkir, 0, ',', '.'),
+            'total_ongkir_formatted' => 'Rp' . number_format($ongkir, 0, ',', '.'),
         ]);
     }
 

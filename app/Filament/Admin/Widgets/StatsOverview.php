@@ -15,7 +15,7 @@ class StatsOverview extends BaseWidget
         $today = now()->startOfDay();
 
         return [
-            Stat::make('Pendapatan Hari Ini', 'Rp ' . number_format(
+            Stat::make('Pendapatan Hari Ini', 'Rp' . number_format(
                 Transaksi::where('status_pembayaran', 'lunas')->where('created_at', '>=', $today)->sum('total_harga'),
                 0, ',', '.'
             )),

@@ -28,7 +28,7 @@ class OrderStatusNotification extends Notification
             ->greeting("Halo {$notifiable->name}!")
             ->line($this->message)
             ->line("No. Invoice: #{$this->transaksi->id}")
-            ->line("Total: Rp " . number_format($this->transaksi->total_harga, 0, ',', '.'))
+            ->line("Total: Rp" . number_format($this->transaksi->total_harga, 0, ',', '.'))
             ->action('Lihat Pesanan', url('/orders'))
             ->line('Terima kasih telah memesan di Tens Coffee!');
     }

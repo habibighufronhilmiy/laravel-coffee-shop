@@ -66,7 +66,7 @@ class LoyaltyController extends Controller
         return response()->json([
             'discount' => $discount,
             'points_used' => $points,
-            'message' => "Diskon Rp " . number_format($discount, 0, ',', '.') . " dengan {$points} poin",
+            'message' => "Diskon Rp" . number_format($discount, 0, ',', '.') . " dengan {$points} poin",
         ]);
     }
 }

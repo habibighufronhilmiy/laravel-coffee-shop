@@ -87,7 +87,7 @@
 
                     <div class="flex justify-between font-bold text-lg mt-4 pt-4 border-t border-gray-100">
                         <span class="text-gray-800">Total</span>
-                        <span class="text-blue-600" x-text="'Rp ' + order.total_harga.toLocaleString('id-ID')"></span>
+                        <span class="text-blue-600" x-text="'Rp' + order.total_harga.toLocaleString('id-ID')"></span>
                     </div>
                 </div>
             </div>

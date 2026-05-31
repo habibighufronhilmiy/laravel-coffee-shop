@@ -214,7 +214,7 @@
                     </div>
                     <div class="p-3">
                         <h4 class="font-semibold text-gray-800 text-sm leading-tight" x-text="item.nama_menu"></h4>
-                        <p class="text-blue-700 font-bold text-sm mt-1" x-text="'Rp ' + item.harga.toLocaleString('id-ID')"></p>
+                        <p class="text-blue-700 font-bold text-sm mt-1" x-text="'Rp' + item.harga.toLocaleString('id-ID')"></p>
                         <span class="text-xs text-gray-400" x-text="item.order_count + '× dipesan'"></span>
                     </div>
                 </div>
@@ -253,7 +253,7 @@
                         <span class="text-xs text-gray-400 ml-1" x-text="'(' + item.ratings_count + ')'"></span>
                     </button>
                     <p class="text-gray-500 text-sm mb-1 line-clamp-2" x-text="item.deskripsi || ''"></p>
-                    <p class="text-blue-700 font-bold text-xl mb-1" x-text="'Rp ' + item.harga.toLocaleString('id-ID')"></p>
+                    <p class="text-blue-700 font-bold text-xl mb-1" x-text="'Rp' + item.harga.toLocaleString('id-ID')"></p>
                     <p class="text-xs text-gray-400 mb-4" x-text="item.kategori?.nama_kategori || ''"></p>
                     <div class="mt-auto flex items-center justify-between pt-3 border-t border-gray-100">
                         <span class="text-sm font-medium" :class="item.stok > 0 ? 'text-green-600' : 'text-red-500'">
@@ -278,7 +278,7 @@
             <div class="p-5 border-b flex items-center justify-between sticky top-0 bg-white z-10">
                 <div>
                     <h3 class="text-lg font-bold text-gray-800" x-text="modalItem?.nama_menu"></h3>
-                    <p class="text-sm text-gray-500" x-text="'Rp ' + modalItem?.harga.toLocaleString('id-ID')"></p>
+                    <p class="text-sm text-gray-500" x-text="'Rp' + modalItem?.harga.toLocaleString('id-ID')"></p>
                 </div>
                 <button @click="closeItemModal()" class="text-gray-400 hover:text-gray-600 text-2xl leading-none">&times;</button>
             </div>
@@ -294,7 +294,7 @@
                                     class="p-3 rounded-xl border text-left transition"
                                     :class="selectedVariant?.id === v.id ? 'border-blue-600 bg-blue-50 ring-2 ring-blue-200' : 'border-gray-200 hover:border-blue-300'">
                                     <span class="block text-sm font-medium text-gray-800" x-text="v.nama"></span>
-                                    <span x-show="v.harga_tambahan > 0" class="text-xs text-blue-600" x-text="'+Rp ' + v.harga_tambahan.toLocaleString('id-ID')"></span>
+                                    <span x-show="v.harga_tambahan > 0" class="text-xs text-blue-600" x-text="'+Rp' + v.harga_tambahan.toLocaleString('id-ID')"></span>
                                     <span x-show="v.stok !== null" class="text-xs text-gray-400" x-text="'Stok: ' + v.stok"></span>
                                 </button>
                             </template>
@@ -313,7 +313,7 @@
                                         class="px-4 py-2.5 rounded-xl border text-sm transition"
                                         :class="isOptionSelected(group.id, opt.id) ? 'border-blue-600 bg-blue-50 ring-2 ring-blue-200 text-blue-700 font-medium' : 'border-gray-200 hover:border-blue-300 text-gray-700'">
                                         <span x-text="opt.nama"></span>
-                                        <span x-show="opt.harga_tambahan > 0" class="text-blue-600 ml-1" x-text="'+' + opt.harga_tambahan.toLocaleString('id-ID')"></span>
+                                        <span x-show="opt.harga_tambahan > 0" class="text-blue-600 ml-1" x-text="'+Rp' + opt.harga_tambahan.toLocaleString('id-ID')"></span>
                                     </button>
                                 </template>
                             </div>
@@ -325,7 +325,7 @@
                                         class="px-4 py-2.5 rounded-xl border text-sm transition"
                                         :class="isOptionSelected(group.id, opt.id) ? 'border-green-500 bg-green-50 ring-2 ring-green-200 text-green-700 font-medium' : 'border-gray-200 hover:border-green-300 text-gray-700'">
                                         <span x-text="opt.nama"></span>
-                                        <span x-show="opt.harga_tambahan > 0" class="text-green-600 ml-1" x-text="'+Rp ' + opt.harga_tambahan.toLocaleString('id-ID')"></span>
+                                        <span x-show="opt.harga_tambahan > 0" class="text-green-600 ml-1" x-text="'+Rp' + opt.harga_tambahan.toLocaleString('id-ID')"></span>
                                     </button>
                                 </template>
                             </div>
@@ -337,21 +337,21 @@
                 <div class="bg-gray-50 rounded-xl p-4 space-y-1.5 text-sm">
                     <div class="flex justify-between text-gray-600">
                         <span>Harga dasar</span>
-                        <span x-text="'Rp ' + (modalItem?.harga || 0).toLocaleString('id-ID')"></span>
+                        <span x-text="'Rp' + (modalItem?.harga || 0).toLocaleString('id-ID')"></span>
                     </div>
                     <div x-show="selectedVariant?.harga_tambahan > 0" class="flex justify-between text-gray-600">
                         <span>Varian <span x-text="selectedVariant?.nama"></span></span>
-                        <span x-text="'+Rp ' + (selectedVariant?.harga_tambahan || 0).toLocaleString('id-ID')"></span>
+                        <span x-text="'+Rp' + (selectedVariant?.harga_tambahan || 0).toLocaleString('id-ID')"></span>
                     </div>
                     <template x-for="opt in selectedOptions" :key="opt.item_id">
                         <div x-show="opt.harga_tambahan > 0" class="flex justify-between text-gray-600">
                             <span x-text="opt.item_name"></span>
-                            <span x-text="'+Rp ' + opt.harga_tambahan.toLocaleString('id-ID')"></span>
+                            <span x-text="'+Rp' + opt.harga_tambahan.toLocaleString('id-ID')"></span>
                         </div>
                     </template>
                     <div class="flex justify-between font-bold text-gray-800 pt-2 border-t border-gray-200">
                         <span>Total</span>
-                        <span class="text-blue-700" x-text="'Rp ' + calculatedPrice.toLocaleString('id-ID')"></span>
+                        <span class="text-blue-700" x-text="'Rp' + calculatedPrice.toLocaleString('id-ID')"></span>
                     </div>
                 </div>
             </div>

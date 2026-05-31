@@ -108,16 +108,16 @@ class TransaksisTable
                             $detail .= "Bayar: {$record->metode_pembayaran}\n";
                             $detail .= "Status Bayar: {$record->status_pembayaran}\n";
                             $detail .= "Status Pesanan: {$record->status_pesanan}\n";
-                            $detail .= "Total: Rp " . number_format($record->total_harga, 0, ',', '.') . "\n\n";
+                            $detail .= "Total: Rp" . number_format($record->total_harga, 0, ',', '.') . "\n\n";
                             $detail .= "--- Items ---\n";
                             foreach ($items as $item) {
-                                $detail .= "{$item['menu']} x {$item['jumlah']} = Rp " . number_format($item['subtotal'], 0, ',', '.') . "\n";
+                                $detail .= "{$item['menu']} x {$item['jumlah']} = Rp" . number_format($item['subtotal'], 0, ',', '.') . "\n";
                             }
                             if ($record->ongkir > 0) {
-                                $detail .= "Ongkir: Rp " . number_format($record->ongkir, 0, ',', '.') . "\n";
+                                $detail .= "Ongkir: Rp" . number_format($record->ongkir, 0, ',', '.') . "\n";
                             }
                             if ($record->voucherPakai) {
-                                $detail .= "Diskon Voucher: Rp " . number_format($record->voucherPakai->diskon, 0, ',', '.') . "\n";
+                                $detail .= "Diskon Voucher: Rp" . number_format($record->voucherPakai->diskon, 0, ',', '.') . "\n";
                             }
                             $detail .= "\nDibuat: {$record->created_at}";
                             notify('Detail Transaksi')->info($detail);

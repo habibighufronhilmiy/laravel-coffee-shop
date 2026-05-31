@@ -336,7 +336,7 @@
                             </div>
                             <p x-show="item.kategori" class="text-xs text-blue-600 font-medium mb-2" x-text="item.kategori?.nama_kategori || ''"></p>
                             <p class="text-gray-500 text-sm mb-1 line-clamp-2" x-text="item.deskripsi || ''"></p>
-                            <p class="text-blue-700 font-bold text-xl mt-auto pt-3 border-t border-gray-100" x-text="'Rp ' + item.harga.toLocaleString('id-ID')"></p>
+                            <p class="text-blue-700 font-bold text-xl mt-auto pt-3 border-t border-gray-100" x-text="'Rp' + item.harga.toLocaleString('id-ID')"></p>
                         </div>
                     </div>
                 </template>

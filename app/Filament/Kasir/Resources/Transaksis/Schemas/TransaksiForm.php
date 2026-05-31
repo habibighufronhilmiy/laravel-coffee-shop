@@ -70,7 +70,7 @@ class TransaksiForm
                         TextInput::make('subtotal')
                             ->label('Subtotal')
                             ->numeric()
-                            ->prefix('Rp ')
+                            ->prefix('Rp')
                             ->readOnly()
                             ->dehydrated(),
                     ])
@@ -81,7 +81,7 @@ class TransaksiForm
                 TextInput::make('total_harga')
                     ->label('Total Harga')
                     ->numeric()
-                    ->prefix('Rp ')
+                    ->prefix('Rp')
                     ->readOnly()
                     ->dehydrated(false),
                 Hidden::make('metode_pembayaran')->default('cash'),

@@ -97,7 +97,7 @@ Route::get('/laporan/export', function () {
         fputcsv($file, ['', '', '']);
 
         fputcsv($file, ['RINGKASAN']);
-        fputcsv($file, ['Total Pendapatan', 'Rp ' . number_format($totalPendapatan, 0, ',', '.'), '']);
+        fputcsv($file, ['Total Pendapatan', 'Rp' . number_format($totalPendapatan, 0, ',', '.'), '']);
         fputcsv($file, ['Total Transaksi', $totalTransaksi, '']);
         fputcsv($file, ['Total Menu Terjual', $totalMenuTerjual, '']);
         fputcsv($file, ['Total Pelanggan', $totalPelanggan, '']);
@@ -113,7 +113,7 @@ Route::get('/laporan/export', function () {
         fputcsv($file, ['PENDAPATAN BULANAN']);
         fputcsv($file, ['Bulan', 'Total', '']);
         foreach ($transaksiBulanan as $item) {
-            fputcsv($file, [$item['bulan'], 'Rp ' . number_format($item['total'], 0, ',', '.'), '']);
+            fputcsv($file, [$item['bulan'], 'Rp' . number_format($item['total'], 0, ',', '.'), '']);
         }
 
         fclose($file);

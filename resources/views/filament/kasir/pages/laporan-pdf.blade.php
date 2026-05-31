@@ -35,7 +35,7 @@
     <h2>Ringkasan</h2>
     <div class="ringkasan">
         <table>
-            <tr><td>Total Pendapatan</td><td>Rp {{ number_format($totalPendapatan, 0, ',', '.') }}</td></tr>
+            <tr><td>Total Pendapatan</td><td>Rp{{ number_format($totalPendapatan, 0, ',', '.') }}</td></tr>
             <tr><td>Total Transaksi</td><td>{{ $totalTransaksi }}</td></tr>
             <tr><td>Total Menu Terjual</td><td>{{ $totalMenuTerjual }}</td></tr>
             <tr><td>Total Pelanggan</td><td>{{ $totalPelanggan }}</td></tr>
@@ -65,7 +65,7 @@
             @forelse($transaksiBulanan as $item)
             <tr>
                 <td>{{ \Carbon\Carbon::createFromFormat('Y-m', $item['bulan'])->locale('id')->translatedFormat('F Y') }}</td>
-                <td>Rp {{ number_format($item['total'], 0, ',', '.') }}</td>
+                <td>Rp{{ number_format($item['total'], 0, ',', '.') }}</td>
             </tr>
             @empty
             <tr><td colspan="2" style="text-align:center;color:#999;">Belum ada data</td></tr>

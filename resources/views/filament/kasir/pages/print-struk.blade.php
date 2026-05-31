@@ -185,7 +185,7 @@
                     <tr>
                         <td>{{ $detail->menu->nama_menu ?? '-' }}</td>
                         <td>{{ $detail->jumlah }}</td>
-                        <td>Rp {{ number_format($detail->subtotal, 0, ',', '.') }}</td>
+                        <td>Rp{{ number_format($detail->subtotal, 0, ',', '.') }}</td>
                     </tr>
                     @empty
                     <tr>
@@ -200,7 +200,7 @@
             <table>
                 <tr>
                     <td>Total Harga</td>
-                    <td>Rp {{ number_format($transaksi->total_harga, 0, ',', '.') }}</td>
+                    <td>Rp{{ number_format($transaksi->total_harga, 0, ',', '.') }}</td>
                 </tr>
                 <tr>
                     <td>Pembayaran</td>
@@ -212,7 +212,7 @@
                 </tr>
                 <tr class="grand-total">
                     <td>Total</td>
-                    <td>Rp {{ number_format($transaksi->total_harga, 0, ',', '.') }}</td>
+                    <td>Rp{{ number_format($transaksi->total_harga, 0, ',', '.') }}</td>
                 </tr>
             </table>
         </div>
