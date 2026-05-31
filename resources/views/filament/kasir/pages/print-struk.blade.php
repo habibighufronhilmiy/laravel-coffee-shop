@@ -111,7 +111,7 @@
             .fi-topbar { display: none !important; }
             .fi-sidebar-layout { display: block !important; }
             .fi-sidebar-layout > .fi-sidebar-layout-content { margin-left: 0 !important; max-width: 100% !important; padding: 0 !important; }
-            body { background: #fff !important; color: #1f2937 !important; }
+            body { background: #fff !important; color: #000 !important; }
             .receipt-wrapper {
                 border: none !important;
                 box-shadow: none !important;
@@ -119,16 +119,16 @@
                 padding: 0 !important;
                 max-width: 100% !important;
             }
-            .receipt-header h2 { font-size: 18px; color: #1f2937 !important; }
-            .receipt-header p { font-size: 10px; color: #1f2937 !important; }
+            .receipt-header h2 { font-size: 18px; color: #000 !important; }
+            .receipt-header p { font-size: 10px; color: #000 !important; }
             .receipt-info table { font-size: 11px; }
-            .receipt-info td { color: #1f2937 !important; }
+            .receipt-info td { color: #000 !important; }
             .receipt-items table { font-size: 11px; }
-            .receipt-items td { color: #1f2937 !important; }
-            .receipt-items th { color: #374151 !important; }
-            .receipt-total td { color: #1f2937 !important; }
-            .receipt-total .grand-total td { font-size: 14px; color: #1f2937 !important; }
-            .receipt-footer p { color: #1f2937 !important; }
+            .receipt-items td { color: #000 !important; }
+            .receipt-items th { color: #000 !important; }
+            .receipt-total td { color: #000 !important; }
+            .receipt-total .grand-total td { font-size: 14px; color: #000 !important; }
+            .receipt-footer p { color: #000 !important; }
             @page {
                 margin: 0;
                 size: 80mm auto;
