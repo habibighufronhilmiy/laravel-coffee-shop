@@ -203,7 +203,7 @@
                             </div>
                             <p class="text-xs text-purple-500 mb-2">100 poin = Rp 10.000 diskon. Masukkan jumlah poin yang ingin ditukar:</p>
                             <div class="flex gap-2">
-                                <input type="number" x-model.number="poinInput" min="0" :max="poinBalance" step="100"
+                                <input type="number" x-model.number="poinInput" min="0" :max="Math.floor(poinBalance / 100) * 100" step="100"
                                     class="flex-1 border border-purple-200 rounded-xl px-4 py-2 text-sm focus:ring-2 focus:ring-purple-500 focus:border-purple-500 bg-white"
                                     placeholder="0">
                                 <button @click="pakaiPoin()"
