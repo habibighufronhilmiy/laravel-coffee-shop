@@ -115,7 +115,7 @@ class DatabaseSeeder extends Seeder
         ]);
     }
 
-    private function seedOptionGroups($menu): void
+    private function seedOptionGroups(Menu $menu): void
     {
         $gula = MenuOptionGroup::create(['menu_id' => $menu->id, 'nama' => 'Sugar Level', 'tipe' => 'single', 'urutan' => 1]);
         MenuOptionGroupItem::create(['menu_option_group_id' => $gula->id, 'nama' => 'Less Sugar', 'harga_tambahan' => 0, 'urutan' => 1]);
