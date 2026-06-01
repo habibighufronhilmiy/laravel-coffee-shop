@@ -594,7 +594,7 @@ function checkoutApp() {
                             if (!snapCallbackFired) {
                                 window.location.href = '{{ route("orders") }}';
                             }
-                        }, 10000);
+                        }, 120000);
                         try {
                             snap.pay(res.data.snap_token, {
                                 onSuccess: async () => {
@@ -613,6 +613,11 @@ function checkoutApp() {
                                     window.location.href = '{{ route("orders") }}';
                                 },
                                 onError: () => {
+                                    snapCallbackFired = true;
+                                    clearTimeout(snapTimeout);
+                                    window.location.href = '{{ route("orders") }}';
+                                },
+                                onClose: () => {
                                     snapCallbackFired = true;
                                     clearTimeout(snapTimeout);
                                     window.location.href = '{{ route("orders") }}';

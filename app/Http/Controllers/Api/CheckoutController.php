@@ -453,6 +453,9 @@ class CheckoutController extends Controller
                     ],
                 ],
             ],
+            'callbacks' => [
+                'finish' => route('orders'),
+            ],
             'enabled_payments' => [
                 'credit_card',
                 'bca_va', 'bni_va', 'bri_va', 'mandiri_va', 'permata_va',
