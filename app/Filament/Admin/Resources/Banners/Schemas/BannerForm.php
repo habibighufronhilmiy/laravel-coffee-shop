@@ -22,8 +22,20 @@ class BannerForm
                 FileUpload::make('gambar')
                     ->image()
                     ->imageEditor()
-                    ->maxSize(2048)
+                    ->imageEditorMode(1)
+                    ->imageEditorViewportWidth(1200)
+                    ->imageEditorViewportHeight(240)
+                    ->imageEditorAspectRatioOptions([
+                        '5:1' => 'Banner Lebar (5:1)',
+                        '4:1' => 'Banner Sedang (4:1)',
+                        '3:1' => 'Banner Standar (3:1)',
+                    ])
+                    ->automaticallyResizeImagesToWidth(1920)
+                    ->automaticallyResizeImagesToHeight(null)
+                    ->automaticallyResizeImagesMode('contain')
+                    ->maxSize(5120)
                     ->directory('banners')
+                    ->helperText('Rekomendasi: 1920x384px (5:1), maks 5MB')
                     ->required(),
                 TextInput::make('link')
                     ->url()
