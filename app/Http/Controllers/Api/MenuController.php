@@ -56,6 +56,8 @@ class MenuController extends Controller
             $menu->wishlisted = Wishlist::where('user_id', $request->user()->id)
                 ->where('menu_id', $menu->id)
                 ->exists();
+        } else {
+            $menu->wishlisted = false;
         }
 
         return response()->json($menu);

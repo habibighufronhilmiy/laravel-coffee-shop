@@ -20,11 +20,11 @@ return new class extends Migration
             $indexes = collect(Schema::getIndexes('cart_items'))->pluck('name')->toArray();
 
             if (in_array('cart_items_user_id_menu_id_menu_variant_id_unique', $indexes)) {
-                // Hapus foreign key terlebih dahulu agar index uniknya bisa di-drop oleh MySQL
-                // Asumsi nama FK menggunakan konvensi standar Laravel [table]_[column]_foreign
-                $table->dropForeign('cart_items_user_id_foreign');
-                $table->dropForeign('cart_items_menu_id_foreign');
-                $table->dropForeign('cart_items_menu_variant_id_foreign');
+                if (Schema::getConnection()->getDriverName() === 'mysql') {
+                    $table->dropForeign('cart_items_user_id_foreign');
+                    $table->dropForeign('cart_items_menu_id_foreign');
+                    $table->dropForeign('cart_items_menu_variant_id_foreign');
+                }
 
                 // Baru hapus unique key lama
                 $table->dropUnique('cart_items_user_id_menu_id_menu_variant_id_unique');
@@ -49,10 +49,11 @@ return new class extends Migration
 
             // Drop unique key baru jika ada
             if (in_array('cart_items_user_opts_unique', $indexes)) {
-                // Lepas foreign key dulu sebelum utak-atik indeks unik
-                $table->dropForeign('cart_items_user_id_foreign');
-                $table->dropForeign('cart_items_menu_id_foreign');
-                $table->dropForeign('cart_items_menu_variant_id_foreign');
+                if (Schema::getConnection()->getDriverName() === 'mysql') {
+                    $table->dropForeign('cart_items_user_id_foreign');
+                    $table->dropForeign('cart_items_menu_id_foreign');
+                    $table->dropForeign('cart_items_menu_variant_id_foreign');
+                }
 
                 $table->dropUnique('cart_items_user_opts_unique');
             }

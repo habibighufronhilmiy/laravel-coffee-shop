@@ -8,10 +8,12 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::table('cart_items', function (Blueprint $table) {
-            $table->dropForeign(['user_id']);
-            $table->dropForeign(['menu_id']);
-        });
+        if (Schema::getConnection()->getDriverName() === 'mysql') {
+            Schema::table('cart_items', function (Blueprint $table) {
+                $table->dropForeign(['user_id']);
+                $table->dropForeign(['menu_id']);
+            });
+        }
 
         Schema::table('cart_items', function (Blueprint $table) {
             $table->dropUnique(['user_id', 'menu_id']);
@@ -30,10 +32,12 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::table('cart_items', function (Blueprint $table) {
-            $table->dropForeign(['user_id']);
-            $table->dropForeign(['menu_id']);
-        });
+        if (Schema::getConnection()->getDriverName() === 'mysql') {
+            Schema::table('cart_items', function (Blueprint $table) {
+                $table->dropForeign(['user_id']);
+                $table->dropForeign(['menu_id']);
+            });
+        }
 
         Schema::table('cart_items', function (Blueprint $table) {
             $table->dropUnique(['user_id', 'menu_id', 'menu_variant_id']);

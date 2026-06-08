@@ -18,7 +18,9 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('transaksis', function (Blueprint $table) {
-            $table->dropForeign(['outlet_id']);
+            if (Schema::getConnection()->getDriverName() === 'mysql') {
+                $table->dropForeign(['outlet_id']);
+            }
             $table->dropColumn('outlet_id');
             $table->string('no_meja', 10)->nullable(false)->change();
             $table->dropColumn('tipe_pengambilan');

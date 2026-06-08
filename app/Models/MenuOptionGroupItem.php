@@ -4,8 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 class MenuOptionGroupItem extends Model
 {
+    use HasFactory;
     protected $fillable = [
         'menu_option_group_id',
         'nama',
@@ -29,3 +32,4 @@ class MenuOptionGroupItem extends Model
         return $this->belongsTo(MenuOptionGroup::class, 'menu_option_group_id');
     }
 }
+

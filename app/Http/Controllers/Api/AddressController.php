@@ -28,7 +28,11 @@ class AddressController extends Controller
 
         $validated['user_id'] = $request->user()->id;
 
-        if (!empty($validated['is_default'])) {
+        $isFirst = $request->user()->addresses()->count() === 0;
+
+        if ($isFirst) {
+            $validated['is_default'] = true;
+        } elseif (!empty($validated['is_default'])) {
             $request->user()->addresses()->update(['is_default' => false]);
         }
 

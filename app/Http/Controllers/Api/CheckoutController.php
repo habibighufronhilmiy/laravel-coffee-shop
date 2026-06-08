@@ -246,7 +246,7 @@ class CheckoutController extends Controller
             }
 
             return response()->json([
-                'message' => 'Pesanan berhasil dibuat, silakan lanjutkan pembayaran.',
+                'message' => 'Pesanan berhasil dibuat. Silakan lanjutkan pembayaran.',
                 'transaksi' => $transaksi,
                 'snap_token' => $snapToken,
             ], 201);

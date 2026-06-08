@@ -4,8 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 class Wishlist extends Model
 {
+    use HasFactory;
     protected $fillable = [
         'user_id',
         'menu_id',
@@ -21,3 +24,4 @@ class Wishlist extends Model
         return $this->belongsTo(Menu::class);
     }
 }
+

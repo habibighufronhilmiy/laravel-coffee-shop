@@ -4,8 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 class CartItem extends Model
 {
+    use HasFactory;
     protected $fillable = [
         'user_id', 'menu_id', 'menu_variant_id', 'options_hash', 'selected_options', 'jumlah', 'harga', 'subtotal',
     ];
@@ -35,3 +38,4 @@ class CartItem extends Model
         return $this->belongsTo(MenuVariant::class, 'menu_variant_id');
     }
 }
+
